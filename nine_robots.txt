@@ -1,0 +1,63 @@
+problem 101 extra
+
+....a
+b....
+...c.
+defgh
+x...i
+
+problem 102 extra
+
+....a
+b....
+...cd
+efgh.
+x...i
+
+problem 103 extra
+
+....a
+b....
+..c..
+defgh
+x...i
+
+problem 104 extra
+
+....a
+b....
+..c.d
+efgh.
+x...i
+
+problem 105 extra
+
+.a.bx
+...c.
+...d.
+..ef.
+g..hi
+
+problem 106 extra
+
+.a.bx
+...c.
+...d.
+..ef.
+g.h.i
+
+problem 107 extra
+
+.a.bx
+...c.
+..de.
+...f.
+g..hi
+
+problem 108 extra
+
+.a.bx
+...c.
+..de.
+...f.
+g.h.i

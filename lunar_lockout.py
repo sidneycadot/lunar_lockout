@@ -3,13 +3,14 @@
 import re
 import math
 import subprocess
+import argparse
 
 def attributes_string(attributes):
     if len(attributes) == 0:
         return ""
     return " [{}]".format("; ".join("{}=\"{}\"".format(k, v) for (k, v) in attributes.items()))
 
-def solve(problem_nr, level, start):
+def solve(problem_nr, level, start, render: bool):
 
     name = "problem_{:02d}".format(problem_nr)
 
@@ -158,17 +159,27 @@ def solve(problem_nr, level, start):
 
     print("name: {} graphviz file vertices: {} edges: {}".format(name, dot_nv, dot_ne))
 
-    filename_pdf = "{}.pdf".format(name)
-    args = ["dot", "-Tpdf", filename_dot, "-o", filename_pdf]
-    subprocess.run(args)
+    if render:
+        filename_pdf = "{}.pdf".format(name)
+        args = ["dot", "-Tpdf", filename_dot, "-o", filename_pdf]
+        subprocess.run(args)
 
     return distance_to_solution[start]
 
 def main():
-    filename = "lunar_lockout.txt"
+
+    parser = argparse.ArgumentParser(description="Solver for the Lunar Lockout puzzle.")
+
+    DEFAULT_FILENAME = "lunar_lockout.txt"
+
+    parser.add_argument("filename", default=DEFAULT_FILENAME, nargs='?', help="Text file containing initial puzzle states.")
+    parser.add_argument("-r", "--render", action="store_true", help="Render graph to PDF using dot.")
+
+    args = parser.parse_args()
+    
     re_valid = re.compile("[.abcdefghix]{5}")
     problem = []
-    with open(filename, "r") as fi:
+    with open(args.filename, "r") as fi:
         for line in fi:
             line = line.strip()
             if line.startswith("problem"):
@@ -182,7 +193,7 @@ def main():
             problem.append(line)
             if len(problem) == 5:
                 s = "".join(problem).encode()
-                nmoves = solve(problem_nr, level, s)
+                nmoves = solve(problem_nr, level, s, render=args.render)
                 print("problem: {} nmoves: {}".format(problem_nr, nmoves))
                 problem.clear()
 
