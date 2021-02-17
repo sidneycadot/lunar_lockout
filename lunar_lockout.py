@@ -2,6 +2,7 @@
 
 import re
 import math
+import subprocess
 
 def attributes_string(attributes):
     if len(attributes) == 0:
@@ -87,8 +88,8 @@ def solve(problem_nr, level, start):
 
     print("name: {} vertices: {} edges: {}".format(name, len(vertices), len(edges)))
 
-    filename = "{}.dot".format(name)
-    with open(filename, "w") as fo:
+    filename_dot = "{}.dot".format(name)
+    with open(filename_dot, "w") as fo:
         print("digraph {} {{".format(name), file=fo)
 
         attributes = {}
@@ -99,18 +100,22 @@ def solve(problem_nr, level, start):
         attributes["overlap"] = "no"
         attributes["label"] = "problem {} ({})".format(problem_nr, level)
         print("    graph{};".format(attributes_string(attributes)), file=fo);
+        
+
+        dot_nv = 0
+        dot_ne = 0
+
         for v in vertices:
             vname = v.decode().replace(".", "_")
-            name = v.decode()
             distance = distance_to_solution[v]
 
-            #if not math.isfinite(distance):
-            #    continue
+            if not math.isfinite(distance):
+                continue
 
-            name = "\\n".join(name[5 * i : 5 * (i+1)] for i in range(5)) + "\\n\\n({})".format(distance if math.isfinite(distance) else "∞")
+            label = "\\n".join(name[5 * i : 5 * (i+1)] for i in range(5)) + "\\n\\n({})".format(distance if math.isfinite(distance) else "∞")
 
             attributes = {}
-            attributes["label"]=name
+            attributes["label"]=label
             if v == start:
                 attributes["fillcolor"] = "dodgerblue"
                 attributes["style"] = "filled"
@@ -130,12 +135,13 @@ def solve(problem_nr, level, start):
                 attributes["fillcolor"] = "beige"
                 attributes["style"] = "filled"
 
-            print("    {}{};".format(vname, attributes_string(attributes)), file=fo);
+            print("    {}{};".format(vname, attributes_string(attributes)), file=fo)
+            dot_nv += 1
 
         for (v1, v2, move_description) in edges:
 
-            #if not (math.isfinite(distance_to_solution[v1]) and math.isfinite(distance_to_solution[v2])):
-            #    continue
+            if not (math.isfinite(distance_to_solution[v1]) and math.isfinite(distance_to_solution[v2])):
+                continue
 
             v1name = v1.decode().replace(".", "_")
             v2name = v2.decode().replace(".", "_")
@@ -147,9 +153,16 @@ def solve(problem_nr, level, start):
                 attributes["color"] = "green"
 
             print("    {} -> {}{};".format(v1name, v2name, attributes_string(attributes)), file=fo);
+            dot_ne += 1
         print("}", file = fo)
 
-        return distance_to_solution[start]
+    print("name: {} graphviz file vertices: {} edges: {}".format(name, dot_nv, dot_ne))
+
+    filename_pdf = "{}.pdf".format(name)
+    args = ["dot", "-Tpdf", filename_dot, "-o", filename_pdf]
+    subprocess.run(args)
+
+    return distance_to_solution[start]
 
 def main():
     filename = "lunar_lockout.txt"
