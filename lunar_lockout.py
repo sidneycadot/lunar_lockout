@@ -10,6 +10,16 @@ def attributes_string(attributes):
         return ""
     return " [{}]".format("; ".join("{}=\"{}\"".format(k, v) for (k, v) in attributes.items()))
 
+def enumerate_solutions(path_so_far, v, distance_to_solution, edges):
+    if distance_to_solution[v] == 0:
+        return [path_so_far]
+
+    solutions = []
+    for (v1, v2) in edges:
+        if v1 == v and distance_to_solution[v2] < distance_to_solution[v1]:
+            solutions.extend(enumerate_solutions(path_so_far + [edges[(v1, v2)]], v2, distance_to_solution, edges))
+    return solutions
+
 def solve(problem_nr, level, start, render: bool):
 
     name = "problem_{:02d}".format(problem_nr)
@@ -17,7 +27,7 @@ def solve(problem_nr, level, start, render: bool):
     EMPTY = ord('.')
 
     vertices = set()
-    edges = set()
+    edges = {}
 
     to_be_visited = [start]
 
@@ -48,7 +58,7 @@ def solve(problem_nr, level, start, render: bool):
                                     ss[y * 5 + x] = EMPTY
                                     ss[yy * 5 + xx] = mover
                                     ss = bytes(ss)
-                                    edges.add((s, ss, chr(mover) + direction))
+                                    edges[(s, ss)] = chr(mover) + direction
                                     to_be_visited.append(ss)
                                 break # from while loop
                             q += 1
@@ -61,7 +71,7 @@ def solve(problem_nr, level, start, render: bool):
     dts = 0
     while True:
         changed = False
-        for (v1, v2, move_description) in edges:
+        for (v1, v2) in edges:
             if v1 not in distance_to_solution:
                 if v2 in distance_to_solution:
                     if distance_to_solution[v2] == dts:
@@ -79,7 +89,7 @@ def solve(problem_nr, level, start, render: bool):
     on_optimal_path.add(start)
     while True:
         changed = False
-        for (v1, v2, move_description) in edges:
+        for (v1, v2) in edges:
             if v1 in on_optimal_path and v2 not in on_optimal_path:
                 if distance_to_solution[v2] < distance_to_solution[v1]:
                     on_optimal_path.add(v2)
@@ -139,7 +149,7 @@ def solve(problem_nr, level, start, render: bool):
             print("    {}{};".format(vname, attributes_string(attributes)), file=fo)
             dot_nv += 1
 
-        for (v1, v2, move_description) in edges:
+        for ((v1, v2), move_description) in edges.items():
 
             if not (math.isfinite(distance_to_solution[v1]) and math.isfinite(distance_to_solution[v2])):
                 continue
@@ -157,8 +167,20 @@ def solve(problem_nr, level, start, render: bool):
             dot_ne += 1
         print("}", file = fo)
 
+
     print("name: {} graphviz file vertices: {} edges: {}".format(name, dot_nv, dot_ne))
 
+    solutions = enumerate_solutions([], start, distance_to_solution, edges)
+    for (i, solution) in enumerate(solutions, 1):
+        sol = []
+        for step in solution:
+            step = step.upper()
+            if len(sol) == 0 or not sol[-1].startswith(step[0]):
+                sol.append(step[0] + "-")
+            sol[-1] = sol[-1] + step[1]
+        sol = ", ".join(sol)
+        print("problem {}, solution {}/{}: {}".format(problem_nr, i, len(solutions), sol))
+    
     if render:
         filename_pdf = "{}.pdf".format(name)
         args = ["dot", "-Tpdf", filename_dot, "-o", filename_pdf]
