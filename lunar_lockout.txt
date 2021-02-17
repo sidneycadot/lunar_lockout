@@ -9,8 +9,8 @@ problem 1 beginner
 problem 2 beginner
 
 ..a..
-.c..b
-.x...
+....b
+.c...
 ...d.
 .x...
 
