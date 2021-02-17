@@ -1,0 +1,319 @@
+problem 1 beginner
+
+....a
+..b..
+.c...
+...d.
+....x
+
+problem 2 beginner
+
+..a..
+.c..b
+.x...
+...d.
+.x...
+
+problem 3 beginner
+
+...a.
+.b...
+.....
+...c.
+.d..x
+
+problem 4 beginner
+
+a...b
+...c.
+.....
+..d..
+.x...
+
+problem 5 beginner
+
+...a.
+.b...
+.....
+.....
+.x.c.
+
+problem 6 beginner
+
+a.x..
+.....
+.....
+....b
+.c...
+
+problem 7 beginner
+
+..a..
+b....
+...c.
+.....
+.x.d.
+
+problem 8 beginner
+
+a..b.
+.c...
+.....
+...x.
+d....
+
+problem 9 beginner
+
+..x.a
+.....
+..b..
+.c...
+...d.
+
+problem 10 beginner
+
+.....
+.a...
+....b
+.....
+c.d.x
+
+problem 11 intermediate
+
+..a..
+b.x.c
+..d..
+..e..
+.....
+
+problem 12 intermediate
+
+.a...
+....b
+.....
+.....
+.c..x
+
+problem 13 intermediate
+
+.a...
+...b.
+.....
+c..x.
+..d..
+
+problem 14 intermediate
+
+..a..
+....b
+c....
+...d.
+ex...
+
+problem 15 intermediate
+
+....a
+.b...
+....c
+..d..
+....x
+
+problem 16 intermediate
+
+a.x..
+.....
+.b..c
+.....
+.d...
+
+problem 17 intermediate
+
+..a.b
+.....
+.c...
+...d.
+.x...
+
+problem 18 intermediate
+
+..x..
+.....
+.....
+.....
+a.b.c
+
+problem 19 intermediate
+
+.a...
+..b..
+...c.
+d....
+..e.x
+
+problem 20 intermediate
+
+.a...
+....b
+c....
+...x.
+.d...
+
+problem 21 advanced
+
+..x..
+..a..
+..b.c
+d....
+...e.
+
+problem 22 advanced
+
+.....
+a...b
+.....
+...c.
+d...x
+
+problem 23 advanced
+
+.a...
+b..c.
+.....
+....d
+.x...
+
+problem 24 advanced
+
+.....
+...a.
+.b...
+.....
+x..cd
+
+problem 25 advanced
+
+.....
+a.bc.
+.....
+.....
+.x..d
+
+problem 26 advanced
+
+a.x..
+....b
+c....
+...d.
+.....
+
+problem 27 advanced
+
+.a..b
+.....
+c..d.
+.....
+e...x
+
+problem 28 advanced
+
+.a..b
+.....
+....c
+d....
+....x
+
+problem 29 advanced
+
+a.x.b
+.....
+.....
+.....
+c...d
+
+problem 30 advanced
+
+..x..
+a...b
+c....
+.....
+.d.e.
+
+problem 31 expert
+
+a.b..
+....c
+d....
+...x.
+.e...
+
+problem 32 expert
+
+.a...
+....b
+.....
+.....
+cxd..
+
+problem 33 expert
+
+ab...
+....c
+.....
+d....
+...ex
+
+problem 34 expert
+
+..a.b
+.....
+c....
+...d.
+e...x
+
+problem 35 expert
+
+a.x.b
+..c..
+.....
+.....
+d...e
+
+problem 36 expert
+
+..x..
+a...b
+.....
+c...d
+..e..
+
+problem 37 expert
+
+a..bc
+.....
+.....
+d..x.
+.....
+
+problem 38 expert
+
+..a.b
+.....
+cd...
+.....
+.x..e
+
+problem 39 expert
+
+a.b.c
+.....
+d....
+.....
+e...x
+
+problem 40 expert
+
+a.b.c
+.....
+.....
+....d
+.x...
